@@ -1,23 +1,462 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+  <!-- CSS Style Update -->
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.7; /* Increased line-height for readability */
+      color: #333;
+      background: #f4f7f6; /* Soft background color */
+    }
+    header, nav, section, footer {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+      background: #fff;
+      margin-bottom: 20px; /* Increased margin for better separation */
+      border-radius: 8px; /* Slightly more rounded corners */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Stronger but softer shadow */
+    }
+    header {
+        text-align: center;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Soft gradient background */
+    }
+    header h1 {
+      margin-bottom: 10px;
+      color: #0d47a1; /* Deep blue color for professionalism */
+      font-size: 2.5rem;
+    }
+    header p {
+      color: #555;
+      font-size: 1.1rem;
+    }
+    nav {
+      background: #0d47a1; /* Primary color for navigation */
+      border-radius: 8px;
+      text-align: center;
+      padding: 18px 0;
+      margin-bottom: 30px;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 20px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    nav a:hover {
+      color: #ffc107; /* Accent yellow on hover */
+      text-decoration: none;
+      transform: scale(1.05);
+    }
+    h2 {
+      border-bottom: 3px solid #0d47a1;
+      padding-bottom: 8px;
+      margin-bottom: 25px;
+      color: #0d47a1;
+      font-size: 2rem;
+    }
+    h3 {
+        color: #1a237e;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .service-card {
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background: #fff;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .service-card:hover {
+      box-shadow: 0 6px 18px rgba(13, 71, 161, 0.2);
+      transform: translateY(-5px);
+    }
+    .cta {
+      display: inline-block;
+      background-color: #0d47a1;
+      color: white;
+      padding: 18px 40px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+    }
+    .cta:hover {
+      background-color: #1565c0;
+    }
+    form label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #444;
+    }
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box; /* Ensures padding doesn't increase element size */
+    }
+    form button {
+      margin-top: 25px;
+      width: 100%;
+      cursor: pointer;
+      font-weight: 700;
+      padding: 15px;
+      background-color: #0d47a1;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+    form button:hover {
+        background-color: #1565c0;
+    }
+    dl.faq dt {
+      font-weight: 700;
+      margin-top: 20px;
+      cursor: pointer;
+      color: #0d47a1;
+      border-bottom: 1px dashed #ddd;
+      padding-bottom: 5px;
+    }
+    dl.faq dd {
+      margin-left: 15px;
+      margin-top: 10px;
+      color: #555;
+      padding-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+    th, td {
+      border: 1px solid #eee;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #e3f2fd;
+      color: #0d47a1;
+      font-weight: 700;
+    }
+    td {
+      background-color: #fafafa;
+    }
+    .trust-section a {
+        color: #0d47a1;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+    }
+    .trust-section a:hover {
+        color: #1565c0;
+        text-decoration: underline;
+    }
+    .content-block {
+        margin-top: 30px;
+        border-top: 2px solid #eee;
+        padding-top: 20px;
+    }
+  </style>
+
+  <!-- JSON-LD Schema for LocalBusiness & OfferCatalog (SEO Optimized) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "대구 인테리어 전문가 그룹 (업체명)",
+    "image": "https://www.yourdomain.kr/images/daegu_interior_main.jpg",
+    "telephone": "053-1234-5678",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "대구광역시 수성구 달구벌대로 2587",
+      "addressLocality": "대구시",
+      "addressRegion": "경상북도",
+      "postalCode": "42000",
+      "addressCountry": "KR"
+    },
+    "url": "https://www.yourdomain.kr/",
+    "openingHours": "Mo-Fr 09:00-18:00",
+    "areaServed": {
+      "@type": "City",
+      "name": "대구광역시"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "인테리어 리모델링 서비스",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "아파트 인테리어"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "상가 인테리어"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "사무실 인테리어"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "주택 리모델링"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "부분 인테리어 (도배, 마루, 욕실)"}}
+      ]
+    },
+    "priceRange": "$$$"
+  }
+  </script>
+</head>
+<body>
+
+<header id="top">
+  <h1>대구 인테리어 업체 2026: 아파트 리모델링 비용 견적 비교</h1>
+  <p>대구 지역 전문 인테리어 업체로, 고객님의 라이프스타일을 반영한 맞춤형 공간을 제안합니다.</p>
+  <p><strong>아파트 인테리어, 상가 인테리어, 사무실 리모델링</strong>까지 모든 궁금증을 해결하고 <strong>내돈내산 후기</strong>를 참고하여 현명하게 결정하세요.</p>
+  <a href="#quote-form" class="cta">무료 견적 상담 받기</a>
+</header>
+
+<nav>
+  <a href="#services">주요 서비스</a>
+  <a href="#portfolio">포트폴리오</a>
+  <a href="#cost-guide">비용 가이드</a>
+  <a href="#process">진행 절차</a>
+  <a href="#faq">FAQ</a>
+  <a href="#quote-form">견적 문의</a>
+</nav>
+
+<section id="services" aria-label="주요 서비스 소개">
+  <h2>대구 인테리어 전문 서비스</h2>
+  <div class="service-card">
+    <h3>1. 아파트 전체/부분 리모델링</h3>
+    <p>오래된 아파트의 문제점을 개선하고 새로운 공간으로 탈바꿈시킵니다. <strong>대구 달서구, 수성구, 북구</strong> 등 각 지역의 아파트 구조에 최적화된 맞춤형 디자인을 제안합니다. 특히 <strong>대구 아파트 인테리어</strong>는 20평대, 30평대, 40평대 등 평형별 전문 설계팀을 운영하여 고객 만족도가 높습니다. <strong>대구 인테리어 저렴한곳</strong>을 찾으시나요? 합리적인 비용으로 최대의 효과를 드립니다.</p>
+    <ul>
+      <li>주요 시공 분야: 거실 확장, 주방 구조 변경, 욕실 리모델링, 발코니 타일 시공, 맞춤형 가구 제작.</li>
+      <li>키워드: 대구아파트인테리어, 대구리모델링비용, 대구20평대인테리어, 대구30평대인테리어, 대구40평대인테리어, 대구수성구아파트인테리어.</li>
+    </ul>
+  </div>
+  <div class="service-card">
+    <h3>2. 상가 및 오피스 인테리어</h3>
+    <p>고객의 시선을 사로잡는 독특한 상업 공간 인테리어. <strong>대구 동성로 상가 인테리어</strong>, <strong>수성못 카페 인테리어</strong> 등 업종별 특성에 맞는 디자인을 제공합니다. <strong>대구 사무실 인테리어</strong>는 효율적인 업무 환경 조성을 목표로 하며, <strong>기업 인테리어</strong> 경험이 풍부한 전문가가 직접 시공합니다. <strong>대구 상가 인테리어</strong>의 경우, <strong>대구 인테리어 비용</strong>의 <strong>평균</strong>을 고려하여 예산을 책정해 드립니다.</p>
+    <ul>
+      <li>주요 시공 분야: 카페, 식당, 미용실, 학원, 병원, 사무실 레이아웃 설계.</li>
+      <li>키워드: 대구상가인테리어, 대구사무실인테리어, 대구병원인테리어, 대구동성로인테리어, 대구카페인테리어.</li>
+    </ul>
+  </div>
+  <div class="service-card">
+    <h3>3. 부분 리모델링 및 홈 스타일링</h3>
+    <p>전체 공사가 부담스러운 고객님을 위한 부분 리모델링 서비스입니다. <strong>대구 도배, 장판 시공</strong>, <strong>욕실 리모델링</strong>, <strong>주방 싱크대 교체</strong> 등 원하는 부분만 선택하여 진행할 수 있습니다. <strong>대구 인테리어 내돈내산 후기</strong>를 보면 부분 시공에 대한 만족도도 매우 높습니다. <strong>대구 인테리어 저렴한곳</strong>을 찾는 분들에게 가장 적합한 옵션입니다.</p>
+    <ul>
+      <li>주요 시공 분야: 주방 가구 교체, 욕실 전체/부분 시공, 바닥재(마루/타일) 교체, 벽지 시공.</li>
+      <li>키워드: 대구부분인테리어, 대구욕실리모델링, 대구주방리모델링, 대구도배장판견적.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="cost-guide" aria-label="인테리어 비용 가이드">
+  <h2>대구 인테리어 비용 및 견적 가이드 (2026년 기준)</h2>
+  <div class="content-block">
+    <p>대구 지역 인테리어 <strong>견적 비용</strong>은 시공 범위, 자재 등급, 평형대에 따라 크게 달라집니다. 2026년도 인테리어 시장 동향을 반영한 <strong>평균 예상 금액</strong>을 제시하여 합리적인 예산 책정을 돕습니다. <strong>대구 인테리어 싼곳</strong>을 찾는 것보다, 투명한 견적을 제시하는 업체를 선택하는 것이 중요합니다.</p>
+    <h3>1. 평형별 아파트 인테리어 평균 비용 비교 (2026년)</h3>
+    <p>아래 표는 대구 지역 아파트 <strong>리모델링 평균 비용</strong>을 <strong>예상 금액</strong>으로 보여줍니다. 시공 범위(전체, 부분)와 자재 등급(표준, 고급)에 따라 <strong>비용 차이점</strong>이 발생합니다. <strong>내돈내산</strong> 고객 후기를 참고하여 합리적인 <strong>가성비 인테리어</strong>를 계획하세요.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>시공 범위</th>
+          <th>평균 금액 (표준 자재)</th>
+          <th>고급 자재 적용 시 (예상)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>20평대 아파트</td>
+          <td>전체 리모델링</td>
+          <td>1,800만원 ~ 2,500만원</td>
+          <td>2,500만원 ~ 3,500만원</td>
+        </tr>
+        <tr>
+          <td>30평대 아파트</td>
+          <td>전체 리모델링</td>
+          <td>2,500만원 ~ 3,500만원</td>
+          <td>3,500만원 ~ 4,500만원</td>
+        </tr>
+        <tr>
+          <td>40평대 아파트</td>
+          <td>전체 리모델링</td>
+          <td>3,500만원 ~ 5,000만원</td>
+          <td>5,000만원 ~ 7,000만원</td>
+        </tr>
+        <tr>
+          <td>부분 리모델링 (주방+욕실)</td>
+          <td>부분 시공</td>
+          <td>800만원 ~ 1,500만원</td>
+          <td>1,200만원 ~ 2,000만원</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>2. 인테리어 자재별 장단점 및 비용 비교</h3>
+    <p>자재 선택은 인테리어 <strong>비용</strong>과 결과물의 <strong>장단점</strong>을 결정하는 중요한 요소입니다. 특히 바닥재는 <strong>대구 지역</strong> 기후 특성상 습도 조절과 내구성이 중요합니다. <strong>저렴한곳</strong>만 찾기보다는 자재의 <strong>장점</strong>과 <strong>단점</strong>을 꼼꼼히 비교해야 합니다.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>자재 구분</th>
+          <th>장점</th>
+          <th>단점</th>
+          <th>비용 수준 (평당)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>강마루</td>
+          <td>습기에 강하고 난방 효율 좋음. 다양한 디자인.</td>
+          <td>흠집에 취약, 강마루보다 비쌈.</td>
+          <td>표준 10만원, 고급 15만원 이상</td>
+        </tr>
+        <tr>
+          <td>강화마루</td>
+          <td>시공이 간편하고 <strong>가격</strong>이 <strong>저렴</strong>함.</td>
+          <td>습기에 약하고 층간 소음 발생 가능성 있음.</td>
+          <td>표준 8만원, 고급 12만원 이상</td>
+        </tr>
+        <tr>
+          <td>포세린 타일</td>
+          <td>내구성, 내습성 우수. 고급스러운 느낌 연출.</td>
+          <td>겨울철 차가움. 시공 <strong>비용</strong> 비쌈.</td>
+          <td>표준 15만원, 고급 25만원 이상</td>
+        </tr>
+        <tr>
+          <td>벽지 (실크)</td>
+          <td>다양한 질감 표현, 오염에 강함.</td>
+          <td>합지보다 <strong>가격</strong>이 비싸고 시공 난이도 높음.</td>
+          <td>표준 1.5만원, 고급 3만원 이상</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="portfolio" aria-label="고객 포트폴리오 및 후기">
+  <h2>고객 포트폴리오 및 내돈내산 후기</h2>
+  <div class="service-card">
+    <h3>대구 수성구 만촌동 34평 아파트 리모델링 후기</h3>
+    <p><strong>내돈내산</strong> 고객 후기: "만촌동 구축 아파트 34평 전체 리모델링을 진행했습니다. <strong>대구 인테리어 업체</strong> 여러 곳을 <strong>비교</strong>해 봤는데, 이곳의 디자인 제안이 가장 마음에 들었습니다. 특히 주방 구조 변경과 층간 소음 방지 시공이 완벽하게 이루어졌습니다. <strong>수성구 인테리어</strong> 전문 업체답게 꼼꼼한 마감 처리가 인상적이었고, <strong>리모델링 비용</strong>도 투명하게 공개되어 <strong>예상 금액</strong>대로 진행되었습니다."</p>
+  </div>
+  <div class="service-card">
+    <h3>대구 달서구 월성동 상가 인테리어 사례</h3>
+    <p>월성동에 새로 오픈한 카페 인테리어 사례입니다. <strong>대구 달서구 인테리어</strong>는 감각적인 디자인과 효율적인 공간 활용이 중요합니다. <strong>상가 인테리어 비용</strong>은 <strong>평균</strong>적으로 <strong>사무실 인테리어</strong>보다 높지만, 저희는 고객의 예산에 맞춰 <strong>저렴한곳</strong>의 자재와 고급 자재를 믹스하여 <strong>가성비</strong>를 극대화했습니다. <strong>대구 상가 인테리어</strong> <strong>추천</strong> 업체로 손색이 없는 결과물입니다.</p>
+  </div>
+  <div class="service-card">
+    <h3>대구 동구 율하동 20평대 아파트 부분 리모델링</h3>
+    <p><strong>대구 동구 아파트 인테리어</strong> 사례입니다. 율하동 20평대 아파트의 주방과 욕실만 <strong>부분 리모델링</strong>을 진행했습니다. <strong>저렴한곳</strong>을 찾다가 저희 업체를 알게 되었는데, <strong>부분 인테리어</strong>도 꼼꼼하게 진행해 주셔서 만족스러웠습니다. <strong>20평대 인테리어 비용</strong>도 <strong>평균</strong>보다 <strong>싼곳</strong>이라고 느꼈습니다.</p>
+  </div>
+</section>
+
+<section id="process" aria-label="인테리어 진행 절차">
+  <h2>대구 인테리어 진행 절차</h2>
+  <ol>
+    <li><a href="#quote-form">무료 견적 신청 및 상담</a>: 고객님의 <strong>대구 아파트</strong> 위치, 평형, 원하는 스타일, <strong>예상 금액</strong> 등을 상세히 알려주세요.</li>
+    <li>현장 방문 실측 및 디자인 제안: <strong>대구</strong> 현장 방문 후 정확한 실측을 진행하며, 고객 맞춤형 디자인과 3D 시뮬레이션을 제공합니다.</li>
+    <li>계약 및 일정 확정: 디자인과 <strong>견적 비용</strong>을 최종 확정하고 계약을 진행합니다. <strong>대구 인테리어 업체</strong> 선정 시 <strong>비교</strong>해 보세요.</li>
+    <li>시공 및 공정 관리: 전문 시공팀이 공사를 진행하며, 매일 공정 보고를 통해 투명하게 진행 상황을 공유합니다.</li>
+    <li>완료 및 A/S: 공사 완료 후 최종 점검을 진행하며, 하자 발생 시 1년간 무상 A/S를 보증합니다.</li>
+  </ol>
+</section>
+
+<section id="cost-guide-extended" aria-label="대구 인테리어 비용 절감 노하우">
+    <h2>대구 인테리어 비용 절감 노하우 및 2026 트렌드 분석</h2>
+    <div class="content-block">
+        <h3>대구 지역별 인테리어 특성 및 키워드 분석</h3>
+        <p><strong>대구 인테리어 업체</strong> 선정 시 <strong>비교</strong>해야 할 점은 지역별 특성입니다. 대구는 <strong>수성구, 달서구, 동구</strong> 등 각 구별로 아파트 평균 연식과 주민 선호도가 다릅니다. 예를 들어 <strong>수성구 인테리어</strong>는 범어동, 만촌동, 황금동의 노후 아파트 리모델링 수요가 높으며, 고급 자재와 주방/욕실 확장에 중점을 둡니다. <strong>달서구 인테리어</strong>는 월성동, 상인동, 진천동 등 신축 아파트와 구축 아파트가 혼재되어 있어 다양한 <strong>견적</strong>을 <strong>비교</strong>할 필요가 있습니다. <strong>대구 북구 인테리어</strong>는 칠곡 지역을 중심으로, <strong>대구 동구 인테리어</strong>는 율하동과 안심 지역을 중심으로 리모델링 <strong>후기</strong>가 많습니다.</p>
+        <p><strong>대구 인테리어</strong>를 계획하는 고객들이 주로 검색하는 키워드와 지역명은 다음과 같습니다: <strong>대구인테리어업체</strong>, <strong>대구리모델링</strong>, <strong>대구아파트인테리어</strong>, <strong>대구인테리어싼곳</strong>, <strong>대구인테리어추천</strong>, <strong>대구인테리어견적</strong>, <strong>대구인테리어비용</strong>, <strong>대구인테리어장단점</strong>, <strong>대구인테리어내돈내산</strong>, <strong>수성구인테리어</strong>, <strong>달서구인테리어</strong>, <strong>동구인테리어</strong>, <strong>북구인테리어</strong>, <strong>남구인테리어</strong>, <strong>서구인테리어</strong>, <strong>달성군인테리어</strong>, <strong>범어동인테리어</strong>, <strong>만촌동인테리어</strong>, <strong>시지인테리어</strong>, <strong>월성동인테리어</strong>, <strong>상인동인테리어</strong>, <strong>성서인테리어</strong>, <strong>진천동인테리어</strong>, <strong>용산동인테리어</strong>, <strong>죽전동인테리어</strong>, <strong>감삼동인테리어</strong>, <strong>칠곡인테리어</strong>, <strong>율하동인테리어</strong>, <strong>이시아폴리스인테리어</strong>, <strong>대봉동인테리어</strong>, <strong>대명동인테리어</strong>, <strong>신암동인테리어</strong>. 이 외에도 <strong>부분 인테리어</strong>, <strong>도배장판</strong>, <strong>욕실 리모델링</strong> 키워드도 많이 검색됩니다.</p>
+        <h3>2026년 대구 인테리어 트렌드 분석</h3>
+        <p>2026년 <strong>대구 인테리어</strong> 트렌드는 '가치 소비'와 '친환경'이 핵심입니다. 단순히 <strong>저렴한곳</strong>을 찾는 대신, 내구성이 좋은 친환경 자재를 사용한 인테리어에 대한 <strong>가치</strong> 인식이 높아졌습니다. 또한, <strong>대구</strong>의 기후 특성상 단열과 방음에 대한 관심이 높아져 이 부분에 대한 투자 <strong>비용</strong>이 증가하는 추세입니다. <strong>아파트 인테리어</strong>에서는 거실 확장보다는 발코니를 활용한 홈카페나 홈짐 공간을 선호하는 경향이 있습니다.</p>
+        <h3>인테리어 비용 절감 팁: 싼곳과 현명한 선택</h3>
+        <p><strong>대구 인테리어 비용</strong>을 절감하기 위한 팁입니다. 무조건 <strong>싼곳</strong>을 찾기보다는, <strong>비용</strong>의 <strong>차이점</strong>을 이해하고 합리적으로 선택해야 합니다. 첫째, <strong>부분 리모델링</strong>을 활용하여 불필요한 공사 <strong>비용</strong>을 줄입니다. 둘째, 자재 선택 시, 브랜드 자재 대신 <strong>가성비</strong>가 좋은 국내산 중소기업 자재를 활용합니다. 셋째, 공사 기간 동안 거주할 경우 인건비 절감이 가능하지만, 공사 기간 중 발생하는 불편함의 <strong>장단점</strong>을 고려해야 합니다. <strong>대구 인테리어 업체</strong>마다 <strong>견적</strong> 산출 방식이 다르므로 2~3곳의 <strong>견적</strong>을 <strong>비교</strong>해 보는 것이 좋습니다.</p>
+    </div>
+</section>
+
+<section id="quote-form" aria-label="무료 견적 신청">
+  <h2>무료 견적 신청하기</h2>
+  <form action="/submit-estimate" method="POST" aria-describedby="견적폼설명">
+    <p id="견적폼설명">아래 폼을 작성해주시면 대구 지역 인테리어 전문가가 빠르고 정확한 <strong>무료 견적</strong>을 안내해 드립니다. <strong>대구 인테리어</strong> <strong>비용</strong>에 대한 궁금증을 해결하세요.</p>
+    <label for="type">원하는 시공 유형 (중복 선택 가능)</label>
+    <select id="type" name="type" required>
+      <option value="">선택하세요</option>
+      <option value="아파트 전체 리모델링">아파트 전체 리모델링</option>
+      <option value="상가 인테리어">상가 인테리어</option>
+      <option value="사무실 인테리어">사무실/기업 인테리어</option>
+      <option value="부분 리모델링">부분 리모델링 (주방/욕실/바닥 등)</option>
+    </select>
+
+    <label for="location">시공 예정지 (대구 지역명)</label>
+    <input type="text" id="location" name="location" placeholder="예: 대구 수성구 만촌동 아파트" required />
+
+    <label for="area">면적 (평수)</label>
+    <input type="number" id="area" name="area" placeholder="예: 34" required />
+
+    <label for="age">건축 연식 (대략적인 준공 연도)</label>
+    <input type="number" id="age" name="age" placeholder="예: 1995" />
+
+    <label for="budget">예상 예산 범위 (Optional)</label>
+    <select id="budget" name="budget">
+      <option value="">선택 안함</option>
+      <option value="1000만원 미만">1,000만원 미만</option>
+      <option value="1000만원~2000만원">1,000만원 ~ 2,000만원</option>
+      <option value="2000만원~3000만원">2,000만원 ~ 3,000만원</option>
+      <option value="3000만원 이상">3,000만원 이상</option>
+    </select>
+
+    <label for="date">시공 희망 시기</label>
+    <input type="text" id="date" name="date" placeholder="예: 2026년 3월 예정" required />
+
+    <label for="phone">연락처</label>
+    <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
+
+    <label for="notes">추가 요청사항 (원하는 디자인 스타일, 특이사항 등)</label>
+    <textarea id="notes" name="notes" rows="4" placeholder="예: 북유럽 스타일로 진행하고 싶어요. 거실 확장 희망합니다."></textarea>
+
+    <button type="submit" class="cta">견적 요청하기</button>
+  </form>
+</section>
+
+<section id="faq" aria-label="자주 묻는 질문 FAQ">
+  <h2>자주 묻는 질문 (FAQ)</h2>
+  <dl class="faq">
+    <dt>Q. <strong>대구 인테리어 업체</strong> 선정 시 가장 중요한 기준은 무엇인가요?</dt>
+    <dd>A. <strong>대구 인테리어 업체</strong> 선정 시 <strong>비교</strong>해야 할 핵심은 '투명한 견적', '전문성', 'A/S 보장 여부'입니다. 무조건 <strong>저렴한곳</strong>보다는 시공 경험이 풍부하고 <strong>내돈내산 후기</strong>가 좋은 업체를 선택해야 합니다. <strong>대구 인테리어</strong>는 <strong>2026년도</strong>부터 하자보수에 대한 기준이 강화되고 있으므로, 계약서에 A/S 기간을 명시하는 것이 중요합니다.</dd>
+
+    <dt>Q. <strong>아파트 인테리어 비용</strong>은 어떻게 산출되나요? <strong>견적</strong>을 미리 알 수 있나요?</dt>
+    <dd>A. <strong>아파트 인테리어 비용</strong>은 시공 평수, 공사 범위(전체 vs 부분), 자재 등급에 따라 산출됩니다. <strong>견적</strong>은 현장 실측을 통해 정확하게 나오지만, 저희는 고객님의 <strong>예상 금액</strong>을 바탕으로 <strong>평균 비용</strong>을 안내해 드립니다. <strong>대구 인테리어 비용</strong> <strong>차이점</strong>은 마감 자재(도배, 마루, 타일) 선택에 따라 크게 달라집니다.</dd>
+
+    <dt>Q. 공사 기간은 얼마나 걸리나요? <strong>대구</strong> 지역에 따라 <strong>비용</strong>이 다른가요?</dt>
+    <dd>A. <strong>대구</strong> 30평대 아파트 전체 <strong>리모델링</strong> 기준으로 <strong>평균</strong> 3~4주가 소요됩니다. <strong>부분 리모델링</strong>은 1~2주 소요됩니다. <strong>대구 지역별</strong>로 자재 운송 <strong>비용</strong>이나 인건비에 약간의 <strong>차이점</strong>이 있을 수 있지만, 큰 변동은 없습니다. <strong>대구 인테리어 업체</strong>마다 <strong>견적</strong>이 다를 수 있으니 <strong>비교</strong>해 보세요.</dd>
+
+    <dt>Q. 인테리어 시공에 대한 A/S 기간이 있나요?</dt>
+    <dd>A. 네, 저희는 모든 시공에 대해 1년간 무상 A/S를 제공합니다. 시공 후 발생할 수 있는 문제에 대해 책임지고 사후관리를 진행합니다. <strong>대구 인테리어 업체</strong> <strong>추천</strong> 시 A/S 여부를 꼭 확인해야 합니다.</dd>
+  </dl>
+</section>
+
+<section id="external-links" class="trust-section">
+  <h2>신뢰성 있는 외부 정보 (Reference)</h2>
+  <p>저희는 투명한 정보를 바탕으로 <strong>대구 인테리어</strong> 시공을 진행합니다. 아래는 인테리어 관련 공인된 정보를 제공하는 외부 사이트입니다.</p>
+  <ul>
+    <li><a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=202495" target="_blank">국가법령정보센터 - 주택법 (주택 건설 기준 등에 관한 규정)</a>: 주택 건설 및 인테리어 관련 법규를 확인할 수 있습니다.</li>
+    <li><a href="https://www.kostat.go.kr/portal/korea/kor_nw/2/1/index.board?bmode=read&aSeq=428384" target="_blank">통계청 - 주택건설 통계</a>: 대구 지역 주택 현황 및 건설 통계를 참고하여 인테리어 시장을 분석합니다.</li>
+    <li><a href="https://ko.wikipedia.org/wiki/%EB%8C%80%EA%B5%AC%EA%B4%91%EC%97%AD%EC%8B%9C" target="_blank">나무위키 - 대구광역시</a>: 대구의 역사 및 지역 특성에 대한 정보를 제공합니다.</li>
+    <li><a href="https://www.daegu.go.kr/" target="_blank">대구광역시청 공식 홈페이지</a>: 지역 건축 및 도시 계획 정보를 확인합니다.</li>
+    <li><a href="https://www.kicac.or.kr/" target="_blank">한국건설산업연구원</a>: 인테리어 산업 동향 및 자재 정보를 참고합니다.</li>
+  </ul>
+</section>
+
+<section id="contact-info">
+  <h2>문의하기 및 회사 정보</h2>
+  <p><strong>전화번호: 053-1234-5678</strong> | <a href="mailto:info@yourdomain.kr">info@yourdomain.kr</a></p>
+  <p>주소: 대구광역시 수성구 달구벌대로 2587</p>
+  <p>영업시간: 평일 09:00~18:00 (사전 예약 시 주말 상담 가능)</p>
+</section>
+
+
+  
